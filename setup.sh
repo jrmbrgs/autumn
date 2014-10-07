@@ -17,19 +17,23 @@ npm install -g phantomjs
 npm install -g webdriverjs
 #npm install -g casperjs
 npm install -g mocha chai
-phantomjsBin=$(which phantomjs);
-phantomjsBinPath="/usr/lib/node_modules/phantomjs/bin"
 
 # Selenium
-if [ ! -f /usr/local/bin/selenium-server-standalone-2.42.2.jar ]; then
+if [ ! -f /usr/local/selenium/selenium-server-standalone-2.42.2.jar ]; then
+    mkdir /usr/local/selenium
+    mkdir /var/log/selenium
     echo 'Downloading Selenium'
     wget http://selenium-release.storage.googleapis.com/2.42/selenium-server-standalone-2.42.2.jar
-    mv selenium-server-standalone-2.42.2.jar /usr/local/bin
+    mv selenium-server-standalone-2.42.2.jar /usr/local/selenium/
 fi
-echo 'Starting Selenium'
-PATH="$phantomjsBinPath:$PATH"
-nohup java -jar /usr/local/bin/selenium-server-standalone-1.42.2.jar -Dphantomjs.binary.path=$phantomjsBinPath
+cp selenium-grid /etc/init.d/
+update-rc.d selenium-grid defaults
+cp selenium-node /etc/init.d/
+update-rc.d selenium-node defaults
+
+service selenium-grid start
+service selenium-node start
 
 
 echo 'Starting phantomJS'
-nohup phantomjs --webdriver=8080 --webdriver-selenium-grid-hub=http://127.0.0.1:4444
+#nohup phantomjs --webdriver=8080 --webdriver-selenium-grid-hub=http://127.0.0.1:4444
