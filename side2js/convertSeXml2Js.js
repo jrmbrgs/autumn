@@ -6,7 +6,7 @@ var fs= require('fs');
 
 /// 
 var logger=          require(ROOT_AD + '/libs/logger'),
-    SeIde2JS=        require(ROOT_AD + '/libs/seIde2JS'),
+    SIde2JS=         require(ROOT_AD + '/libs/sIde2JS'),
     CasperFormatter= require(ROOT_AD + '/libs/formatters/casper');
 
 
@@ -29,5 +29,5 @@ process.argv.forEach(function(val, index, array) {
 var inFilePath =  '/autumn/tests/seIDE/loginSuccessful.xml';
 var outFilePath =  '/autumn/tests/seIDE/loginSuccessful.js';
 var casperFormatter= new CasperFormatter();
-var seide2JS = new SeIde2JS(casperFormatter, regen);
-seide2JS.makeJSUnitTestFile(inFilePath, outFilePath);
+var side2JS = new SIde2JS(casperFormatter, regen);
+side2JS.makeJSUnitTestFile(inFilePath, outFilePath);

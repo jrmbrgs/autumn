@@ -2,7 +2,7 @@ var l=      require(ROOT_AD + '/libs/logger'),
     fs=     require('fs'),
     xml2js= require('xml2js');
 
-var seIde2JS= function(formatter, regen) {
+var sIde2JS= function(formatter, regen) {
 
     this.inFilePath=  null;
     this.outFilePath= null;
@@ -112,7 +112,7 @@ var seIde2JS= function(formatter, regen) {
 
 }                             
 
-seIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
+sIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
     this.inFilePath=  inFilePath;
     this.outFilePath= outFilePath;
     this.outFileBackupPath= outFilePath + '.backup';
@@ -138,4 +138,4 @@ seIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
 }
 
 
-module.exports = seIde2JS;
+module.exports = sIde2JS;
