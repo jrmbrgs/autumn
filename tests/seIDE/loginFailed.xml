@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCase seleniumIDEVersion="2.8.0" baseURL="https://fr-recette2-front.bovpg.net/">
+<selenese>
+	<command>open</command>
+	<target><![CDATA[/login/index]]></target>
+	<value><![CDATA[]]></value>
+</selenese>
+<selenese>
+	<command>type</command>
+	<target><![CDATA[id=login-form-email]]></target>
+	<value><![CDATA[foo@vpg.com]]></value>
+</selenese>
+<selenese>
+	<command>type</command>
+	<target><![CDATA[id=login-form-password]]></target>
+	<value><![CDATA[barbar]]></value>
+</selenese>
+<selenese>
+	<command>clickAndWait</command>
+	<target><![CDATA[name=LoginForm]]></target>
+	<value><![CDATA[]]></value>
+</selenese>
+<selenese>
+	<command>verifyElementPresent</command>
+	<target><![CDATA[css=div.error.flashMessage]]></target>
+	<value><![CDATA[]]></value>
+</selenese>
+</TestCase>
