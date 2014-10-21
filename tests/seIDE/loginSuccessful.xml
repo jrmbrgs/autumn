@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TestCase seleniumIDEVersion="2.8.0" baseURL="https://fr-recette2-front.bovpg.net/">
+<selenese>
+	<command>open</command>
+	<target><![CDATA[/login/index]]></target>
+	<value><![CDATA[]]></value>
+</selenese>
+<selenese>
+	<command>type</command>
+	<target><![CDATA[id=login-form-email]]></target>
+	<value><![CDATA[jer0me@hotmail.fr]]></value>
+</selenese>
+<selenese>
+	<command>type</command>
+	<target><![CDATA[id=login-form-password]]></target>
+	<value><![CDATA[FTIanpxn03]]></value>
+</selenese>
+<selenese>
+	<command>clickAndWait</command>
+	<target><![CDATA[name=LoginForm]]></target>
+	<value><![CDATA[]]></value>
+</selenese>
+<selenese>
+	<command>assertElementPresent</command>
+	<target><![CDATA[id=sdv-title]]></target>
+	<value><![CDATA[]]></value>
+</selenese>
+</TestCase>
