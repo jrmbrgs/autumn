@@ -2,15 +2,17 @@ var l=      require(ROOT_AD + '/libs/logger'),
     fs=     require('fs'),
     xml2js= require('xml2js');
 
-var seIde2JS= function(formatter) {
+var seIde2JS= function(formatter, regen) {
 
     this.inFilePath=  null;
     this.outFilePath= null;
+    this.outFileBackupPath= null;
     this.outFh=       null;
     this.parser=      null;
 
     // The JS formatter dedicated to a JS Unit Test FW. ie. CasperJS
     this.formatter= formatter;
+    this.regen= typeof regen !== 'undefined' ? regen : false;
 
     this.testSuitXS=  [];
     this.cmd2test =   ['open', 'verifyElementPresent'];
@@ -51,11 +53,16 @@ var seIde2JS= function(formatter) {
                 case 'type':
                     this.write( this.formatter.type(target, value));
                     break;
+                case 'click':
                 case 'clickAndWait':
                     this.write( this.formatter.clickAndWait(target, value));
                     break;
+                case 'assertElementPresent':
                 case 'verifyElementPresent':
                     this.write( this.formatter.verifyElementPresent(target));
+                    break;
+                case 'waitForElementPresent':
+                case 'waitForVisible':
                     break;
                 default:
                     //throw "Unknown selenium command : '" +command+ "'";
@@ -69,9 +76,25 @@ var seIde2JS= function(formatter) {
  
     this.openOutFile= function(){
         if (fs.existsSync(this.outFilePath)) {
-            throw "Unable to create file '" + this.outFilePath + "' file exists";
+            if (this.regen) {
+                this.backupOutFile();
+            }
+            else{
+                throw "Unable to create file '" + this.outFilePath + "' file exists. Use regen option";
+            }
         }
         this.outFh= fs.createWriteStream( this.outFilePath, {flags: 'ax', encoding: 'utf8', mode: 0666});
+    }
+
+    this.backupOutFile= function(){
+        fs.renameSync( this.outFilePath, this.outFileBackupPath );
+        l.info(this.outFilePath + ' backed up into ' + this.outFileBackupPath); 
+    }
+    this.deleteOutFileBackup= function(){
+        if (fs.existsSync(this.outFileBackupPath)) {
+            fs.unlinkSync( this.outFileBackupPath );
+            l.info(this.outFileBackupPath + ' removed'); 
+        }
     }
 
     this.writeFileHeader= function() {
@@ -92,6 +115,7 @@ var seIde2JS= function(formatter) {
 seIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
     this.inFilePath=  inFilePath;
     this.outFilePath= outFilePath;
+    this.outFileBackupPath= outFilePath + '.backup';
     try {
         // Open file hanler
         this.openOutFile();
@@ -105,6 +129,9 @@ seIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
         // Close file handler
         l.info("File '" + this.inFilePath + "/ was successfully read.\n");
         this.outFh.write( this.formatter.footer());
+        if (this.regen) {
+            this.deleteOutFileBackup();
+        }
     } catch (ex) {
         l.error(ex);
     }
