@@ -93,4 +93,24 @@ CasperFormatter.prototype.verifyElementPresent = function (target){
 }
 
 
+/**
+ *
+ */
+CasperFormatter.prototype.capture = function (target){
+    l.debug('capture');
+    return [
+        "    casper.each( cnf.viewports, function(casper, vp){",
+        "        casper.then(function() {",
+        "            this.viewport(vp.width, vp.height);",
+        "        });",
+        "        casper.then(function() {",
+        "            var filePath= cnf.capturesAD + vp.name + '-' + vp.width + 'x' + vp.height + '.png';",
+        "            this.capture( filePath, {top: 0, left: 0, width: vp.width, height:vp.height});",
+        "        });",
+        "    });",
+        ""
+    ].join("\n");
+}
+
+
 module.exports = CasperFormatter;
