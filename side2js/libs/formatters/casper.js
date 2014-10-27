@@ -21,9 +21,8 @@ var CasperFormatter = function(){
         }
         l.debug(selector);
         return selector;
-    }
-
-}
+    };
+};
 
 
 
@@ -34,7 +33,7 @@ CasperFormatter.prototype.header = function (testName, nbTest, logLevel){
            '}\n' +
            '\n' +
            'casper.test.begin("' + testName + '", ' + nbTest + ', function suite(test) {\n';
-}
+};
 
 CasperFormatter.prototype.footer = function (url){
     l.debug('footer');
@@ -43,7 +42,7 @@ CasperFormatter.prototype.footer = function (url){
            '    });\n' +
            '});\n';
 
-}
+};
 
 
 /**
@@ -54,7 +53,7 @@ CasperFormatter.prototype.open = function (url){
     return "    casper.start('" + url + "', function() {\n" +
            "        test.assertHttpStatus(200, 'Connected to login page');\n" +
            "    });\n";
-}
+};
 
 
 /**
@@ -66,7 +65,7 @@ CasperFormatter.prototype.type = function (target, value){
     return "    casper.then(function() {\n" +
            "        this.sendKeys('" + selector + "', '" + value + "');\n" +
            "    });\n";
-}
+};
 
 
 /**
@@ -78,7 +77,7 @@ CasperFormatter.prototype.clickAndWait = function (target, value){
     return "    casper.then(function() {\n" +
            "        this.click( '" + selector + "');\n" +
            "    });\n";
-}
+};
 
 
 /**
@@ -90,7 +89,7 @@ CasperFormatter.prototype.verifyElementPresent = function (target){
     return "    casper.then(function() {\n" +
            "        test.assertExists('" + selector +"', '" + selector + " found');\n" +
            "    });\n";
-}
+};
 
 
 /**
@@ -110,7 +109,7 @@ CasperFormatter.prototype.capture = function (target){
         "    });",
         ""
     ].join("\n");
-}
+};
 
 
 module.exports = CasperFormatter;
