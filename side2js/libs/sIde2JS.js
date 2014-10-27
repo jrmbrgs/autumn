@@ -17,34 +17,35 @@ var sIde2JS= function(formatter, regen) {
     this.testSuitXS=  [];
     this.cmd2test =   ['open', 'verifyElementPresent'];
     this.testUrl=     null;
-    this.nbTest=      0;
+console.log('foo');
+    this.nbTest=      0
 
 
     /**
      *
      */ 
     this.parseTestSuite= function(err, testSuite){
-        var testCaseJson= testSuite['TestCase'];
-        l.info('NB command found : ' + testCaseJson['selenese'].length);
-        this.testUrl = testCaseJson['$']['baseURL'];
-        this.testSuitXS= testCaseJson['selenese'];
+        var testCaseJson= testSuite.TestCase;
+        l.info('NB command found : ' + testCaseJson.selenese.length);
+        this.testUrl = testCaseJson.$.baseURL;
+        this.testSuitXS= testCaseJson.selenese;
         /// Count how many selenese are asserts test func
         this.testSuitXS.forEach( function(v, k){
-            var command= v['command'][0];
+            var command= v.command[0];
             var t = this.cmd2test.indexOf(command)>=0 ? 1 : 0;
             this.nbTest = this.nbTest +t;
            
         }, this);
-    }
+    };
   
 
     /**
      *
      */ 
     this.buildCommand= function(v, k){
-            var command= v['command'][0];
-            var target= v['target'][0];
-            var value= v['value'][0];
+            var command= v.command[0];
+            var target= v.target[0];
+            var value= v.value[0];
             l.debug(" c:" + command + " v:" + value + " t:" + target);
             switch(command) {
                 case 'open':
@@ -68,11 +69,11 @@ var sIde2JS= function(formatter, regen) {
                     //throw "Unknown selenium command : '" +command+ "'";
             }
     
-    }
+    };
       
     this.write= function( s){
         this.outFh.write( s);
-    }
+    };
  
     this.openOutFile= function(){
         if (fs.existsSync(this.outFilePath)) {
@@ -84,18 +85,18 @@ var sIde2JS= function(formatter, regen) {
             }
         }
         this.outFh= fs.createWriteStream( this.outFilePath, {flags: 'ax', encoding: 'utf8', mode: 0666});
-    }
+    };
 
     this.backupOutFile= function(){
         fs.renameSync( this.outFilePath, this.outFileBackupPath );
         l.info(this.outFilePath + ' backed up into ' + this.outFileBackupPath); 
-    }
+    };
     this.deleteOutFileBackup= function(){
         if (fs.existsSync(this.outFileBackupPath)) {
             fs.unlinkSync( this.outFileBackupPath );
             l.info(this.outFileBackupPath + ' removed'); 
         }
-    }
+    };
 
     this.writeFileHeader= function() {
 
@@ -108,9 +109,9 @@ var sIde2JS= function(formatter, regen) {
                '\n' +
                'var cnf = require(\'../config.js\');\n';
         this.write( h);
-    }
+    };
 
-}                             
+};                        
 
 sIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
     this.inFilePath=  inFilePath;
@@ -135,7 +136,7 @@ sIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
     } catch (ex) {
         l.error(ex);
     }
-}
+};
 
 
 module.exports = sIde2JS;
