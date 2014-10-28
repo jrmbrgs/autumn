@@ -29,7 +29,7 @@ var sIde2JS= function(formatter, regen) {
 
     /**
      * Parses a selenium IDE xml macro and extract some global information
-     */ 
+     */
     this.parseTestSuite= function(err, testSuite){
         var testCaseJson= testSuite.TestCase;
         l.info('NB command found : ' + testCaseJson.selenese.length);
@@ -42,11 +42,11 @@ var sIde2JS= function(formatter, regen) {
             this.nbTest = this.nbTest +t;
         }, this);
     };
-  
+
 
     /**
      * Converts selenium commands according to the chosen JS FW formatter
-     */ 
+     */
     this.buildCommand= function(v, k){
             var command= v.command[0];
             var target= v.target[0];
@@ -79,13 +79,13 @@ var sIde2JS= function(formatter, regen) {
                 default:
                     //throw "Unknown selenium command : '" +command+ "'";
             }
-    
+
     };
-      
+
     this.write= function( s){
         this.outFh.write( s);
     };
- 
+
     this.openOutFile= function(){
         if (fs.existsSync(this.outFilePath)) {
             if (this.regen) {
@@ -100,19 +100,19 @@ var sIde2JS= function(formatter, regen) {
 
     this.backupOutFile= function(){
         fs.renameSync( this.outFilePath, this.outFileBackupPath );
-        l.info(this.outFilePath + ' backed up into ' + this.outFileBackupPath); 
+        l.info(this.outFilePath + ' backed up into ' + this.outFileBackupPath);
     };
     this.deleteOutFileBackup= function(){
         if (fs.existsSync(this.outFileBackupPath)) {
             fs.unlinkSync( this.outFileBackupPath );
-            l.info(this.outFileBackupPath + ' removed'); 
+            l.info(this.outFileBackupPath + ' removed');
         }
     };
 
 
     /**
-     * 
-     */ 
+     *
+     */
     this.writeFileHeader= function() {
 
         var h= '/**\n' +
@@ -126,7 +126,7 @@ var sIde2JS= function(formatter, regen) {
         this.write( h);
     };
 
-};                        
+};
 
 sIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
     this.inFilePath=  inFilePath;
@@ -137,7 +137,7 @@ sIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
         this.openOutFile();
         this.writeFileHeader();
         /// Parse and build commands
-        this.parser = new xml2js.Parser();       
+        this.parser = new xml2js.Parser();
         var fileData = fs.readFileSync(this.inFilePath, 'utf8');
         this.parser.parseString(fileData, this.parseTestSuite.bind(this));
         this.outFh.write( this.formatter.header('testName', this.nbTest, 'debug'));
