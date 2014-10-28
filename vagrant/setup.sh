@@ -4,6 +4,8 @@ trap exit ERR
 # Update app-get
 #apt-get update
 
+apt-get install git
+
 
 # Install base
 apt-get -y install curl openjdk-7-jre 
