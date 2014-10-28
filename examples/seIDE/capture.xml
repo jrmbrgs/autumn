@@ -21,8 +21,8 @@
 	<value><![CDATA[]]></value>
 </selenese>
 <selenese>
-	<command>assertElementPresent</command>
-	<target><![CDATA[id=sdv-title]]></target>
+	<command>captureEntirePageScreenshot</command>
+	<target><![CDATA[]]></target>
 	<value><![CDATA[]]></value>
 </selenese>
 </TestCase>
