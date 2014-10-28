@@ -1,0 +1,18 @@
+{
+    /// Deps
+    "node":     true,
+    "phantom":  true,
+
+    /// Unforcing opts
+    "curly":    true,
+    "unused":   true,
+    "undef":    true,
+    "eqeqeq":   false,
+    "indent" : 5,
+    "eqnull" :true,
+    /// Globals
+    "globals": {
+        "ROOT_AD": true,
+        "LOG_LVL": true
+    }
+}

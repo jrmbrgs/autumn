@@ -1,0 +1,63 @@
+/**
+ * VPG JS Style Guide
+ * See options : https://github.com/jscs-dev/node-jscs#options
+ */
+{
+    "fileExtensions": [ ".js"],
+    "excludeFiles": [ ],
+
+    "disallowSpacesInNamedFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInsideArrayBrackets": true,
+    "disallowSpacesInsideParentheses": true,
+    "disallowSpaceAfterObjectKeys": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "disallowSpaceBeforeBinaryOperators": [
+        ","
+    ],
+    "requireSpaceBeforeBlockStatements": true,
+
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+    "disallowTrailingComma": true,
+    "disallowQuotedKeysInObjects": true,
+    "disallowEmptyBlocks": true,
+    "disallowMultipleLineBreaks": true,
+
+    "requireBlocksOnNewline": 1,
+    "requireCommaBeforeLineBreak": true,
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceAfterBinaryOperators": true,    
+    "requireSpacesInConditionalExpression": true,
+    "requireParenthesesAroundIIFE": true,
+    "requireSpaceAfterKeywords": [
+        "if",
+        "else",
+        "for",
+        "while",
+        "do",
+        "switch",
+        "case",
+        "return",
+        "try",
+        "catch",
+        "typeof"
+    ],
+    "requireDotNotation": true,
+
+    "maximumLineLength":            120,
+    "validateLineBreaks":           "LF",
+    "validateIndentation":          4,
+    "disallowKeywords":            ["with"]
+}

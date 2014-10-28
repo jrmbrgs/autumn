@@ -1,3 +1,6 @@
-.vagrant/
+vagrant/.vagrant/
 *.swp
+*.swo
+.DS_Store
 side2js/logs/
+node_modules/
