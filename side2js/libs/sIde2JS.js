@@ -2,6 +2,12 @@ var l=      require(ROOT_AD + '/libs/logger'),
     fs=     require('fs'),
     xml2js= require('xml2js');
 
+
+
+/**
+ * sIde2JS class
+ *
+ */
 var sIde2JS= function(formatter, regen) {
 
     this.inFilePath=  null;
@@ -12,17 +18,17 @@ var sIde2JS= function(formatter, regen) {
 
     // The JS formatter dedicated to a JS Unit Test FW. ie. CasperJS
     this.formatter= formatter;
-    this.regen= typeof regen !== 'undefined' ? regen : false;
+    this.regen= typeof regen != 'undefined' ? regen : false;
+
 
     this.testSuitXS=  [];
     this.cmd2test =   ['open', 'verifyElementPresent'];
     this.testUrl=     null;
-console.log('foo');
-    this.nbTest=      0
+    this.nbTest=      0;
 
 
     /**
-     *
+     * Parses a selenium IDE xml macro and extract some global information
      */ 
     this.parseTestSuite= function(err, testSuite){
         var testCaseJson= testSuite.TestCase;
@@ -34,13 +40,12 @@ console.log('foo');
             var command= v.command[0];
             var t = this.cmd2test.indexOf(command)>=0 ? 1 : 0;
             this.nbTest = this.nbTest +t;
-           
         }, this);
     };
   
 
     /**
-     *
+     * Converts selenium commands according to the chosen JS FW formatter
      */ 
     this.buildCommand= function(v, k){
             var command= v.command[0];
@@ -48,6 +53,7 @@ console.log('foo');
             var value= v.value[0];
             l.debug(" c:" + command + " v:" + value + " t:" + target);
             switch(command) {
+                /// Actions funcs
                 case 'open':
                     this.write( this.formatter.open(this.testUrl+target));
                     break;
@@ -58,9 +64,14 @@ console.log('foo');
                 case 'clickAndWait':
                     this.write( this.formatter.clickAndWait(target, value));
                     break;
+                /// Asserts funcs
                 case 'assertElementPresent':
                 case 'verifyElementPresent':
                     this.write( this.formatter.verifyElementPresent(target));
+                    break;
+                case 'captureEntirePageScreenshot':
+                case 'captureEntirePageScreenshotAndWait':
+                    this.write( this.formatter.capture());
                     break;
                 case 'waitForElementPresent':
                 case 'waitForVisible':
@@ -98,6 +109,10 @@ console.log('foo');
         }
     };
 
+
+    /**
+     * 
+     */ 
     this.writeFileHeader= function() {
 
         var h= '/**\n' +
@@ -125,10 +140,10 @@ sIde2JS.prototype.makeJSUnitTestFile = function(inFilePath, outFilePath){
         this.parser = new xml2js.Parser();       
         var fileData = fs.readFileSync(this.inFilePath, 'utf8');
         this.parser.parseString(fileData, this.parseTestSuite.bind(this));
-        this.outFh.write( this.formatter.header('testName', 2, 'debug'));
+        this.outFh.write( this.formatter.header('testName', this.nbTest, 'debug'));
         this.testSuitXS.forEach( this.buildCommand.bind(this));
         // Close file handler
-        l.info("File '" + this.inFilePath + "/ was successfully read.\n");
+        l.info("File '" + this.outFilePath + "' was successfully read.");
         this.outFh.write( this.formatter.footer());
         if (this.regen) {
             this.deleteOutFileBackup();
