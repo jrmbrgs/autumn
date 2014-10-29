@@ -1,5 +1,5 @@
 var config = {};
-config.debug= false;
+config.debug= true;
 
 config.vpg= {};
 config.vpg.loginUrl=        'https://www.voyage-prive.com/login/index';

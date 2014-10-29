@@ -32,7 +32,7 @@ var sIde2JS= function(formatter, regen) {
      */
     this.parseTestSuite= function(err, testSuite){
         var testCaseJson= testSuite.TestCase;
-        l.info('NB command found : ' + testCaseJson.selenese.length);
+        l.info('NB command found : ' + testCaseJson.selenese.length);
         this.testUrl = testCaseJson.$.baseURL;
         this.testSuitXS= testCaseJson.selenese;
         /// Count how many selenese are asserts test func

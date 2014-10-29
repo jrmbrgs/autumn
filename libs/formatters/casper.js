@@ -1,10 +1,9 @@
 var l= require(ROOT_AD + '/libs/logger');
 
 var CasperFormatter = function(){
-    
+
     this.buildSelector = function (target){
         var x = target.split("=",2);
-        l.debug(x);
         var selector = '';
         switch(x[0]) {
             case 'id':
@@ -29,6 +28,7 @@ var CasperFormatter = function(){
 CasperFormatter.prototype.header = function (testName, nbTest, logLevel){
     l.debug('header');
     return 'if(cnf.debug) {\n' +
+           '    casper.options.verbose = true;\n' +
            '    casper.options.logLevel = "' + logLevel + '";\n' +
            '}\n' +
            '\n' +
